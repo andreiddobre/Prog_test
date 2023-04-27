@@ -10,11 +10,11 @@ API_secret = "RgbR1K2tt0BQdp0KoALjvk3u1tG9yhdnymlos1D2wsT4r0PNlp"
 access_token = "571966749-PldY6PPm43TJDo00oZEE69fI7WK5AL3HigSgqWah"
 access_token_secret = "ePxvcxTvBcjqMvYXorEDaxvSLi3LzYnxh2i5v54Ptf8v3"
 
-# authenticate with Twitter API
+# authenticate with Twitter API (setup the authentication handler and passing in all necessary access credentials)
 auth = tweepy.OAuthHandler(API_key, API_secret)
 auth.set_access_token(access_token, access_token_secret)
 
-# create API object
+# create tweepy API instance (so we can access the Twitter API with the provided authentication credentials)
 api = tweepy.API(auth)
 
 @app.route('/', methods=['GET', 'POST'])
@@ -47,11 +47,10 @@ def index():
             tweet_texts.append({'text': tweet_text, 'media_url': media_url})
 
         # render the template with the tweet texts
-        return render_template('index.html', tweet_texts=tweet_texts, search_term=search_term, only_images=only_images)
+        return render_template('home.html', tweet_texts=tweet_texts, search_term=search_term, only_images=only_images)
     
-    # if the request is a GET request, render the index.html template
-    return render_template('index.html')
+    # if the request is a GET request, render the home.html template
+    return render_template('home.html')
 
 if __name__ == '__main__':
     app.run(debug = True)
-
